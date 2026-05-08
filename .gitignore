@@ -1,0 +1,11 @@
+node_modules/
+input/
+output/
+assets/temp_dub/
+assets/temp_process/
+.env
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store

@@ -1,0 +1,40 @@
+{
+    "input": "input/video.mp4",
+    "output": "output/result.mp4",
+    "options": {
+        "mirror": true,
+        "zoom": 1.1,
+        "speed": 1.0,
+        "color": {
+            "brightness": 0.05,
+            "contrast": 1.1,
+            "saturation": 1.2
+        },
+        "overlay": {
+            "path": "assets/overlays/watermark.png",
+            "pos": "10:10"
+        },
+        "sfx": [
+            {
+                "path": "assets/sfx/beep.mp3",
+                "startTime": 1.5
+            }
+        ],
+        "dubbing": {
+            "enabled": true,
+            "voice": "vi-VN-HoaiMyNeural",
+            "segments": [
+                {
+                    "time": 0.5,
+                    "text": "Chào bạn, đây là video được lồng tiếng tự động.",
+                    "translateFrom": false
+                },
+                {
+                    "time": 4.0,
+                    "text": "This tool is very powerful",
+                    "translateFrom": true
+                }
+            ]
+        }
+    }
+}

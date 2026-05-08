@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Pro Editor - Anti Copyright</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="api-key-modal" class="modal">
+        <div class="modal-content card">
+            <h2>Nhập OpenAI API Key</h2>
+            <p>Để dùng tính năng tự động dịch, bạn cần nhập API Key.</p>
+            <input type="text" id="api-key-input" placeholder="sk-...">
+            <button id="save-api-key" class="btn-primary">Lưu Key</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Video <span>Pro</span> Editor</h1>
+            <p>Công cụ chỉnh sửa lách bản quyền chuyên nghiệp</p>
+        </header>
+
+        <main>
+            <section class="upload-section card">
+                <div class="drop-zone" id="drop-zone">
+                    <div class="icon">📁</div>
+                    <p>Kéo thả video vào đây hoặc click để chọn</p>
+                    <input type="file" id="video-input" accept="video/*" hidden>
+                </div>
+                <div id="file-info" class="hidden">
+                    <span id="file-name"></span>
+                    <button id="remove-file">Xóa</button>
+                </div>
+            </section>
+
+            <div class="grid">
+                <section class="settings-section card">
+                    <h2>Cài đặt hình ảnh</h2>
+
+
+                    <div class="control-group">
+                        <label>Độ phóng (Zoom): <span id="zoom-val">1.1</span>x</label>
+                        <input type="range" id="zoom" min="1" max="2" step="0.05" value="1.2">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Tốc độ (Speed): <span id="speed-val">1.0</span>x</label>
+                        <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1.0">
+                    </div>
+
+                    <div class="color-controls">
+                        <h3>Màu sắc</h3>
+                        <div class="control-group">
+                            <label>Độ sáng: <span id="bright-val">0.05</span></label>
+                            <input type="range" id="brightness" min="-0.5" max="0.5" step="0.01" value="0.05">
+                        </div>
+                        <div class="control-group">
+                            <label>Tương phản: <span id="contrast-val">1.1</span></label>
+                            <input type="range" id="contrast" min="0" max="2" step="0.1" value="1.1">
+                        </div>
+                        <div class="control-group">
+                            <label>Độ bão hòa: <span id="satur-val">1.2</span></label>
+                            <input type="range" id="saturation" min="0" max="3" step="0.1" value="1.2">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dubbing-section card">
+                    <h2>Lồng tiếng & Dịch</h2>
+
+                    <div class="control-group">
+                        <label><input type="checkbox" id="logo-enabled" checked> Chèn Logo chữ</label>
+                        <input type="text" id="logo-text" value="ComCom" placeholder="Nhập tên logo...">
+                    </div>
+                    <div class="control-group">
+                        <label class="checkbox-container"> 💬 Hiển thị phụ đề (Subtitles)
+                            <input type="checkbox" id="sub-enabled" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label class="checkbox-container"> 🎙️ Bật lồng tiếng AI
+                            <input type="checkbox" id="dub-enabled" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Giọng đọc:</label>
+                        <select id="voice">
+                            <optgroup label="Miễn phí (Edge TTS)">
+                                <option value="vi-VN-NamMinhNeural">Nam Minh (Nam - Bắc)</option>
+                                <option value="vi-VN-HoaiMyNeural">Hoài My (Nữ - Bắc)</option>
+                                <option value="vi-VN-ThanhNhanNeural">Thanh Nhàn (Nữ - Nam)</option>
+                            </optgroup>
+                            <optgroup label="Cao cấp (OpenAI - Cực hay)">
+                                <option value="openai-alloy">Alloy (Tự nhiên)</option>
+                                <option value="openai-nova">Nova (Nữ - Truyền cảm)</option>
+                                <option value="openai-shimmer">Shimmer (Nữ - Nhẹ nhàng)</option>
+                                <option value="openai-onyx">Onyx (Nam - Trầm ấm)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Tốc độ đọc: <span id="v-rate-val">+0</span>%</label>
+                        <input type="range" id="voice-rate" min="-50" max="200" step="10" value="0">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Tông giọng (Pitch): <span id="v-pitch-val">14</span>Hz</label>
+                        <input type="range" id="voice-pitch" min="-50" max="50" step="1" value="14">
+                    </div>
+
+                    <div class="control-group">
+                        <label><input type="checkbox" id="bgm-enabled" checked> Nhạc nền (BGM)</label>
+                        <input type="range" id="bgm-volume" min="0" max="0.5" step="0.05" value="0.1">
+                        <span id="bgm-vol-val">10</span>%
+                    </div>
+
+                    <div class="auto-tools">
+                        <button id="srt-btn" class="btn-secondary">📄 Nhập file .srt</button>
+                        <button id="bulk-text-btn" class="btn-secondary">📝 Dán văn bản dài</button>
+                        <button id="sync-btn" class="btn-secondary">⚡ Tự động căn chỉnh</button>
+                        <input type="file" id="srt-input" accept=".srt" hidden>
+                    </div>
+
+                    <div id="bulk-text-container" class="hidden">
+                        <textarea id="bulk-text-input" placeholder="Dán đoạn tiếng Trung dài vào đây..."></textarea>
+                        <button id="apply-bulk-text" class="btn-primary">Tách câu & Dịch</button>
+                    </div>
+
+                    <div id="segments-container">
+                        <div class="segment-item">
+                            <input type="number" placeholder="Giây" class="seg-time" value="0.5">
+                            <input type="text" placeholder="Nội dung" class="seg-text">
+                            <button class="btn-translate-single" title="Dịch sang tiếng Việt">🔄</button>
+                        </div>
+                    </div>
+                    <button id="add-segment" class="btn-secondary">+ Thêm đoạn</button>
+                </section>
+            </div>
+
+            <button id="process-btn" class="btn-primary">BẮT ĐẦU XỬ LÝ</button>
+
+            <div id="status-container" class="hidden">
+                <div class="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+                <p id="status-text">Đang chuẩn bị...</p>
+            </div>
+
+            <div id="result-container" class="hidden card">
+                <h3>Xử lý thành công!</h3>
+                <a id="download-link" href="#" target="_blank" class="btn-success">Tải video kết quả</a>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
