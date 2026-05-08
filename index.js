@@ -122,9 +122,9 @@ class VideoProcessor {
         // Outline: 3 (Acts as padding for the box in BorderStyle 3)
         // Shadow: 0
         // Alignment: 2 (Bottom center)
-        // MarginV: 50 (Distance from bottom)
+        // MarginV: 150 (Distance from bottom)
         
-        let content = `[Script Info]\nScriptType: v4.00+\nPlayResX: ${this.settings.width}\nPlayResY: ${this.settings.height}\n\n[v4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Default,sans-serif,28,&H00000000,&H000000FF,&H00FFFFFF,&H00FFFFFF,1,0,0,0,100,100,0,0,3,3,0,2,20,20,50,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n`;
+        let content = `[Script Info]\nScriptType: v4.00+\nPlayResX: ${this.settings.width}\nPlayResY: ${this.settings.height}\n\n[v4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Default,sans-serif,28,&H00000000,&H000000FF,&H00FFFFFF,&H00FFFFFF,1,0,0,0,100,100,0,0,3,3,0,2,20,20,150,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n`;
 
         segments.forEach(seg => {
             const start = this.formatAssTime(seg.startTime);
